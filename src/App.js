@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import './App.css';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import  {Card , Button} from 'react-bootstrap'
+class App extends React.Component{
+  constructor(props){
+      super(props);
+  };
+  state ={ fullName :"adam",bio :"go my code", profession : "Software developper" , imgSrc : './programm.jpg' , Alt:"gmc" ,show : false , time: 0}
+  handleClick=()=>this.setState({show :!this.state.show});
+  increment=()=>this.setState({time: this.state.time +1});
+  componentDidMount() {
+    setInterval( this.increment, 1000);
+  } 
+  render(){
+    return(
+      <div style={{ marginLeft: '30%' }}>
+      <Card style={{ width: '25rem' }}>
+        <Button variant="primary" type="button" onClick={this.handleClick}> ClickMe</Button>
+        {this.state.show=== true?
+        <div><img src={this.state.imgSrc}  style={{ width: '25rem' }} alt={this.state.Alt}/></div>:<div></div>}
+  <Card.Body>
+  
+    <Card.Text>
+        {this.state.show === true?
+        <div>
+            <h1>Full Name : {this.state.fullName}</h1>
+            <h1>Biography : {this.state.bio}</h1>
+            <h1>Profession: {this.state.profession}</h1>
+           
+            <h1>{this.state.time}</h1>      
+        </div>:
+        <div></div>}
+
+    </Card.Text>
+   
+  </Card.Body>
+</Card>
+          </div>
+      );
+  }
+};
 
 export default App;
